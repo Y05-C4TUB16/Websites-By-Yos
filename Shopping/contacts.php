@@ -16,24 +16,18 @@
     <div class="nav-container">
         <ul class="navigations">
             <h1 class="symbol"><a href="Raku.php">楽</a></h1>
-            <li class="item item-1"><a href="mens.php">Men</a></li>
-            <li class="item item-1"><a href="contacts.php">Contacts</a></li>
-            <li class="item item-1"><a href="Raku.php#about-us">About us</a></li>
+            <li class="item item-1"><a href="mens.php">EXPLORE</a></li>
+            <li class="item item-1"><a href="contacts.php">CONTACTS</a></li>
+            <li class="item item-1"><a href="Raku.php#about-us">ABOUT US</a></li>
         </ul>
 
         <h1><a href="Raku.php" class="logo">R A K U</a></h1>
 
         <ul class="icon-navigations">
-            <li class="icon-1"><a href="#"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <li class="icon-1"><a href="Search.php"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                 </a></li>
-
-            <li class="icon-2"><a href="#"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1" />
-                    </svg>
-                </a></li>
-        </ul>
     </div>
 
     <!-- Content -->

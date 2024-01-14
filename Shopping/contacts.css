@@ -18,16 +18,18 @@ body {
 
 html {
     scroll-behavior: smooth;
-  }
-  
+}
+
 
 /* navigation */
+
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 15%;
 }
+
 
 .navigations {
     font-size: 18px;
@@ -47,12 +49,18 @@ html {
     height: auto;
 }
 
+.symbol h1 {
+    margin: 0;
+}
+
+
 .navigations a,
 .symbol {
     display: flex;
     align-items: center;
-    color: #000;
+    color: #000
 }
+
 
 .logo {
     font-size: 50px;
@@ -61,6 +69,7 @@ html {
 }
 
 svg {
+    display: flex;
     flex-direction: column;
     width: 20px;
     color: #000;
@@ -86,7 +95,7 @@ svg {
     width: 50rem;
     margin: auto;
     margin-top: 100px;
-    
+
 }
 
 h2 {
@@ -119,6 +128,7 @@ button {
 button:hover {
     background-color: #2980b9;
 }
+
 /* Contact Us End */
 
 /* Footer */

@@ -16,16 +16,16 @@
 
         <ul class="navigations">
             <h1 class="symbol"><a href="Raku.php">楽</a></h1>
-            <li class="item item-1"><a href="#">Men</a></li>
-            <li class="item item-1"><a href="contacts.php">Contacts</a></li>
-            <li class="item item-1"><a href="Raku.php#about-us">About us</a></li>
+            <li class="item item-1"><a href="#">EXPLORE</a></li>
+            <li class="item item-1"><a href="contacts.php">CONTACTS</a></li>
+            <li class="item item-1"><a href="Raku.php#about-us">ABOUT US</a></li>
         </ul>
 
         <h1><a href="Raku.php" class="logo">R A K U</a></h1>
 
         <ul class="icon-navigations">
 
-            <li class="icon-1"><a href="#"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <li class="icon-1"><a href="Search.php"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                 </a></li>
@@ -160,102 +160,107 @@
             <option value="gcash">GCash</option>
         </select>
 
-        <button id="confirmPurchaseBtn">Confirm Purchase</button>
+        <button id="confirmPurchaseBtn">Checkout</button>
+        <button id="cancelBtn">Cancel</button>
     </div>
 
     <div id="confirmationMessage">
-        <h2>Thank You for Your Purchase!</h2>
-        <p id="purchaseDetails"></p>
-        <button id="continueShoppingAfterPurchaseBtn">Continue Shopping</button>
-    </div>
+    <h2>Thank You for Your Purchase!</h2>
+    <p id="purchaseDetails"></p>
+    <button id="continueShoppingAfterPurchaseBtn">Continue Shopping</button>
+</div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const buyButtons = document.querySelectorAll(".btn");
-            const selectedProducts = [];
-            const checkoutModal = document.getElementById("checkoutModal");
-            const selectedProductsList = document.getElementById("selectedProducts");
-            const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
-            const quantityInput = document.getElementById("quantity");
-            const addressInput = document.getElementById("address");
-            const paymentMethodSelect = document.getElementById("paymentMethod");
-            const confirmationMessage = document.getElementById("confirmationMessage");
-            const purchaseDetails = document.getElementById("purchaseDetails");
-            const continueShoppingAfterPurchaseBtn = document.getElementById("continueShoppingAfterPurchaseBtn");
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const buyButtons = document.querySelectorAll(".btn");
+        const selectedProducts = [];
+        const checkoutModal = document.getElementById("checkoutModal");
+        const selectedProductsList = document.getElementById("selectedProducts");
+        const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
+        const cancelBtn = document.getElementById("cancelBtn");
+        const quantityInput = document.getElementById("quantity");
+        const addressInput = document.getElementById("address");
+        const paymentMethodSelect = document.getElementById("paymentMethod");
+        const confirmationMessage = document.getElementById("confirmationMessage");
+        const purchaseDetails = document.getElementById("purchaseDetails");
+        const continueShoppingAfterPurchaseBtn = document.getElementById("continueShoppingAfterPurchaseBtn");
 
-            function handleButtonClick(event) {
-                const card = event.target.closest(".card");
-                const title = card.querySelector(".title").innerText;
-                const price = card.querySelector(".price").innerText;
+        function handleButtonClick(event) {
+            const card = event.target.closest(".card");
+            const title = card.querySelector(".title").innerText;
+            const price = card.querySelector(".price").innerText;
 
-                selectedProducts.push({
-                    title,
-                    price
-                });
-                updateCheckout();
+            selectedProducts.push({ title, price });
+            updateCheckout();
+        }
+
+        function updateCheckout() {
+            selectedProductsList.innerHTML = "";
+
+            selectedProducts.forEach(product => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${product.title} - ${product.price}`;
+                selectedProductsList.appendChild(listItem);
+            });
+
+            checkoutModal.style.display = "block";
+        }
+
+        function confirmPurchase() {
+            const quantity = quantityInput.value;
+            const address = addressInput.value;
+            const paymentMethod = paymentMethodSelect.value;
+
+            // Validate address
+            if (!address.trim()) {
+                alert("Please enter your address.");
+                return;
             }
 
-            function updateCheckout() {
-                selectedProductsList.innerHTML = "";
+            // Calculate the total purchase amount
+            const totalAmount = selectedProducts.reduce((total, product) => {
+                return total + parseFloat(product.price.replace('₱', '')) * quantity;
+            }, 0);
 
-                selectedProducts.forEach(product => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = `${product.title} - ${product.price}`;
-                    selectedProductsList.appendChild(listItem);
-                });
-
-                checkoutModal.style.display = "block";
-            }
-
-            function confirmPurchase() {
-                const quantity = quantityInput.value;
-                const address = addressInput.value;
-                const paymentMethod = paymentMethodSelect.value;
-
-                // Validate address
-                if (!address.trim()) {
-                    alert("Please enter your address.");
-                    return;
-                }
-
-                // Calculate the total purchase amount
-                const totalAmount = selectedProducts.reduce((total, product) => {
-                    return total + parseFloat(product.price.replace('₱', '')) * quantity;
-                }, 0);
-
-                // Display the confirmation message
-                purchaseDetails.innerHTML = `
+            // Display the confirmation message
+            purchaseDetails.innerHTML = `
                 Quantity: ${quantity} <br>
                 Address: ${address} <br>
                 Payment Method: ${paymentMethod} <br>
                 Total Purchase: ₱${totalAmount.toFixed(2)}
             `;
 
-                confirmationMessage.style.display = "block";
-                resetCheckout();
-            }
+            confirmationMessage.style.display = "block";
+            resetCheckout();
+            checkoutModal.style.display = "none"; // Hide the checkout modal
+        }
 
-            function resetCheckout() {
-                selectedProducts.length = 0;
-                quantityInput.value = "1";
-                addressInput.value = "";
-                paymentMethodSelect.value = "creditCard";
-                updateCheckout();
-                checkoutModal.style.display = "none";
-            }
+        function cancelCheckout() {
+            resetCheckout();
+            checkoutModal.style.display = "none";
+        }
 
-            function continueShopping() {
-                confirmationMessage.style.display = "none";
-            }
+        function resetCheckout() {
+            selectedProducts.length = 0;
+            quantityInput.value = "1";
+            addressInput.value = "";
+            paymentMethodSelect.value = "creditCard";
+            updateCheckout();
+        }
 
-            buyButtons.forEach(button => {
-                button.addEventListener("click", handleButtonClick);
-            });
+        function continueShopping() {
+            confirmationMessage.style.display = "none";
+        }
 
-            confirmPurchaseBtn.addEventListener("click", confirmPurchase);
-            continueShoppingAfterPurchaseBtn.addEventListener("click", continueShopping);
+        buyButtons.forEach(button => {
+            button.addEventListener("click", handleButtonClick);
         });
-    </script>
+
+        confirmPurchaseBtn.addEventListener("click", confirmPurchase);
+        cancelBtn.addEventListener("click", cancelCheckout);
+        continueShoppingAfterPurchaseBtn.addEventListener("click", continueShopping);
+    });
+</script>
 
     <!-- Javascript -->
 

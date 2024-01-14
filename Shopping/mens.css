@@ -178,14 +178,25 @@ svg {
     text-align: center;
     border-radius: 10px;
 }
-#confirmPurchaseBtn {
+#confirmPurchaseBtn,
+#cancelBtn {
     margin-top: 10px;
     padding: 10px;
+    width: 120px;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#confirmPurchaseBtn {
     background-color: #4caf50;
     color: #fff;
     border: none;
-    cursor: pointer;
-    border-radius: 5px;
+}
+#cancelBtn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    margin-left: 10px;
 }
 label {
     display: block;
@@ -225,7 +236,6 @@ input, select {
     cursor: pointer;
     border-radius: 5px;
 }
-
 /* Javascript End */
 
 /* Footer */
