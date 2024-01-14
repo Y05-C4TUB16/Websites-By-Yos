@@ -14,8 +14,8 @@ body {
 
 html {
     scroll-behavior: smooth;
-  }
-  
+}
+
 /* navigation */
 
 .nav-container {
@@ -75,6 +75,7 @@ svg {
     gap: 20px;
     order: 1;
 }
+
 /* Navigation END */
 
 
@@ -108,15 +109,15 @@ svg {
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
-} 
+}
 
 .products .card img {
-    height: 300px;
-    width: 85%;
+    height: 390px;
+    width: 100%;
 }
 
 .products .card .desc {
-    padding: 5px 20px;
+    padding: 20px 20px;
     opacity: 0.8;
 }
 
@@ -141,7 +142,7 @@ svg {
 }
 
 .products .card .box .btn {
-    font-size: 13px;
+    font-size: 12px;
     color: #f63e4e;
     padding: 10px 18px;
     font-weight: 900;
@@ -155,13 +156,77 @@ svg {
     color: white;
 }
 
-.products{
+.products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 }
 
 /* Products End */
 
+/* Javacsipt Start*/
+#checkoutModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+#confirmPurchaseBtn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+label {
+    display: block;
+    margin: 10px 0;
+    text-align: left;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Add your own styling for the confirmation message */
+#confirmationMessage {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+}
+#continueShoppingAfterPurchaseBtn {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Javascript End */
 
 /* Footer */
 footer {
