@@ -144,34 +144,38 @@
     <!-- Javascript -->
 
     <div id="checkoutModal">
-        <h2>Confirm Purchase</h2>
-        <ul id="selectedProducts"></ul>
+    <h2>Confirm Purchase</h2>
+    <ul id="selectedProducts"></ul>
 
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" min="1" value="1">
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" min="1" value="1">
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" placeholder="Enter your address" required>
+    <label for="address">Address:</label>
+    <input type="text" id="address" placeholder="Enter your address" required>
 
-        <label for="paymentMethod">Payment Method:</label>
-        <select id="paymentMethod">
-            <option value="creditCard">Credit Card</option>
-            <option value="cashOnDelivery">Cash on Delivery</option>
-            <option value="gcash">GCash</option>
-        </select>
+    <!-- Add email input -->
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
 
-        <button id="confirmPurchaseBtn">Checkout</button>
-        <button id="cancelBtn">Cancel</button>
-    </div>
+    <label for="paymentMethod">Payment Method:</label>
+    <select id="paymentMethod">
+        <option value="creditCard">Credit Card</option>
+        <option value="cashOnDelivery">Cash on Delivery</option>
+        <option value="gcash">GCash</option>
+    </select>
 
-    <div id="confirmationMessage">
+    <button id="confirmPurchaseBtn">Checkout</button>
+    <button id="cancelBtn">Cancel</button>
+</div>
+
+<div id="confirmationMessage" style="display: none;">
     <h2>Thank You for Your Purchase!</h2>
     <p id="purchaseDetails"></p>
     <button id="continueShoppingAfterPurchaseBtn">Continue Shopping</button>
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const buyButtons = document.querySelectorAll(".btn");
         const selectedProducts = [];
         const checkoutModal = document.getElementById("checkoutModal");
@@ -180,6 +184,7 @@
         const cancelBtn = document.getElementById("cancelBtn");
         const quantityInput = document.getElementById("quantity");
         const addressInput = document.getElementById("address");
+        const emailInput = document.getElementById("email");
         const paymentMethodSelect = document.getElementById("paymentMethod");
         const confirmationMessage = document.getElementById("confirmationMessage");
         const purchaseDetails = document.getElementById("purchaseDetails");
@@ -190,7 +195,10 @@
             const title = card.querySelector(".title").innerText;
             const price = card.querySelector(".price").innerText;
 
-            selectedProducts.push({ title, price });
+            selectedProducts.push({
+                title,
+                price
+            });
             updateCheckout();
         }
 
@@ -209,9 +217,15 @@
         function confirmPurchase() {
             const quantity = quantityInput.value;
             const address = addressInput.value;
+            const email = emailInput.value;
             const paymentMethod = paymentMethodSelect.value;
 
-            // Validate address
+            // Validate email and address
+            if (!email.trim()) {
+                alert("Please enter your email.");
+                return;
+            }
+
             if (!address.trim()) {
                 alert("Please enter your address.");
                 return;
@@ -226,13 +240,15 @@
             purchaseDetails.innerHTML = `
                 Quantity: ${quantity} <br>
                 Address: ${address} <br>
+                Email: ${email} <br>
                 Payment Method: ${paymentMethod} <br>
                 Total Purchase: ₱${totalAmount.toFixed(2)}
             `;
 
+            checkoutModal.style.display = "none";
             confirmationMessage.style.display = "block";
-            resetCheckout();
-            checkoutModal.style.display = "none"; // Hide the checkout modal
+            // confirmationMessage.style.display = "block";
+            // resetCheckout();
         }
 
         function cancelCheckout() {
@@ -244,12 +260,14 @@
             selectedProducts.length = 0;
             quantityInput.value = "1";
             addressInput.value = "";
+            emailInput.value = "";
             paymentMethodSelect.value = "creditCard";
             updateCheckout();
         }
 
         function continueShopping() {
             confirmationMessage.style.display = "none";
+            checkoutModal.style.display = "none";
         }
 
         buyButtons.forEach(button => {
