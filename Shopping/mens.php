@@ -142,102 +142,101 @@
     </section>
 
     <!-- Javascript -->
-
     <div id="checkoutModal">
-    <h2>Confirm Purchase</h2>
-    <ul id="selectedProducts"></ul>
+        <h2>Confirm Purchase</h2>
+        <ul id="selectedProducts"></ul>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" min="1" value="1">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" min="1" value="1">
 
-    <label for="address">Address:</label>
-    <input type="text" id="address" placeholder="Enter your address" required>
+        <label for="address">Address:</label>
+        <input type="text" id="address" placeholder="Enter your address" required>
 
-    <!-- Add email input -->
-    <label for="email">Email:</label>
-    <input type="email" id="email" placeholder="Enter your email" required>
+        <!-- Add email input -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
 
-    <label for="paymentMethod">Payment Method:</label>
-    <select id="paymentMethod">
-        <option value="creditCard">Credit Card</option>
-        <option value="cashOnDelivery">Cash on Delivery</option>
-        <option value="gcash">GCash</option>
-    </select>
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod">
+            <option value="creditCard">Credit Card</option>
+            <option value="cashOnDelivery">Cash on Delivery</option>
+            <option value="gcash">GCash</option>
+        </select>
 
-    <button id="confirmPurchaseBtn">Checkout</button>
-    <button id="cancelBtn">Cancel</button>
-</div>
+        <button id="confirmPurchaseBtn">Checkout</button>
+        <button id="cancelBtn">Cancel</button>
+    </div>
 
-<div id="confirmationMessage" style="display: none;">
-    <h2>Thank You for Your Purchase!</h2>
-    <p id="purchaseDetails"></p>
-    <button id="continueShoppingAfterPurchaseBtn">Continue Shopping</button>
-</div>
+    <div id="confirmationMessage" style="display: none;">
+        <h2>Thank You for Your Purchase!</h2>
+        <p id="purchaseDetails"></p>
+        <button id="continueShoppingAfterPurchaseBtn">Continue Shopping</button>
+    </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const buyButtons = document.querySelectorAll(".btn");
-        const selectedProducts = [];
-        const checkoutModal = document.getElementById("checkoutModal");
-        const selectedProductsList = document.getElementById("selectedProducts");
-        const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
-        const cancelBtn = document.getElementById("cancelBtn");
-        const quantityInput = document.getElementById("quantity");
-        const addressInput = document.getElementById("address");
-        const emailInput = document.getElementById("email");
-        const paymentMethodSelect = document.getElementById("paymentMethod");
-        const confirmationMessage = document.getElementById("confirmationMessage");
-        const purchaseDetails = document.getElementById("purchaseDetails");
-        const continueShoppingAfterPurchaseBtn = document.getElementById("continueShoppingAfterPurchaseBtn");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const buyButtons = document.querySelectorAll(".btn");
+            const selectedProducts = [];
+            const checkoutModal = document.getElementById("checkoutModal");
+            const selectedProductsList = document.getElementById("selectedProducts");
+            const confirmPurchaseBtn = document.getElementById("confirmPurchaseBtn");
+            const cancelBtn = document.getElementById("cancelBtn");
+            const quantityInput = document.getElementById("quantity");
+            const addressInput = document.getElementById("address");
+            const emailInput = document.getElementById("email");
+            const paymentMethodSelect = document.getElementById("paymentMethod");
+            const confirmationMessage = document.getElementById("confirmationMessage");
+            const purchaseDetails = document.getElementById("purchaseDetails");
+            const continueShoppingAfterPurchaseBtn = document.getElementById("continueShoppingAfterPurchaseBtn");
 
-        function handleButtonClick(event) {
-            const card = event.target.closest(".card");
-            const title = card.querySelector(".title").innerText;
-            const price = card.querySelector(".price").innerText;
+            function handleButtonClick(event) {
+                const card = event.target.closest(".card");
+                const title = card.querySelector(".title").innerText;
+                const price = card.querySelector(".price").innerText;
 
-            selectedProducts.push({
-                title,
-                price
-            });
-            updateCheckout();
-        }
-
-        function updateCheckout() {
-            selectedProductsList.innerHTML = "";
-
-            selectedProducts.forEach(product => {
-                const listItem = document.createElement("li");
-                listItem.textContent = `${product.title} - ${product.price}`;
-                selectedProductsList.appendChild(listItem);
-            });
-
-            checkoutModal.style.display = "block";
-        }
-
-        function confirmPurchase() {
-            const quantity = quantityInput.value;
-            const address = addressInput.value;
-            const email = emailInput.value;
-            const paymentMethod = paymentMethodSelect.value;
-
-            // Validate email and address
-            if (!email.trim()) {
-                alert("Please enter your email.");
-                return;
+                selectedProducts.push({
+                    title,
+                    price
+                });
+                updateCheckout();
             }
 
-            if (!address.trim()) {
-                alert("Please enter your address.");
-                return;
+            function updateCheckout() {
+                selectedProductsList.innerHTML = "";
+
+                selectedProducts.forEach(product => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${product.title} - ${product.price}`;
+                    selectedProductsList.appendChild(listItem);
+                });
+
+                checkoutModal.style.display = "block";
             }
 
-            // Calculate the total purchase amount
-            const totalAmount = selectedProducts.reduce((total, product) => {
-                return total + parseFloat(product.price.replace('₱', '')) * quantity;
-            }, 0);
+            function confirmPurchase() {
+                const quantity = quantityInput.value;
+                const address = addressInput.value;
+                const email = emailInput.value;
+                const paymentMethod = paymentMethodSelect.value;
 
-            // Display the confirmation message
-            purchaseDetails.innerHTML = `
+                // Validate email and address
+                if (!email.trim()) {
+                    alert("Please enter your email.");
+                    return;
+                }
+
+                if (!address.trim()) {
+                    alert("Please enter your address.");
+                    return;
+                }
+
+                // Calculate the total purchase amount
+                const totalAmount = selectedProducts.reduce((total, product) => {
+                    return total + parseFloat(product.price.replace('₱', '')) * quantity;
+                }, 0);
+
+                // Display the confirmation message
+                purchaseDetails.innerHTML = `
                 Quantity: ${quantity} <br>
                 Address: ${address} <br>
                 Email: ${email} <br>
@@ -245,44 +244,44 @@
                 Total Purchase: ₱${totalAmount.toFixed(2)}
             `;
 
-            checkoutModal.style.display = "none";
-            confirmationMessage.style.display = "block";
-            // confirmationMessage.style.display = "block";
-            // resetCheckout();
-        }
+                checkoutModal.style.display = "none";
+                confirmationMessage.style.display = "block";
+                // confirmationMessage.style.display = "block";
+                // resetCheckout();
+            }
 
-        function cancelCheckout() {
-            resetCheckout();
-            checkoutModal.style.display = "none";
-        }
+            function cancelCheckout() {
+                resetCheckout();
+                checkoutModal.style.display = "none";
+            }
 
-        function resetCheckout() {
-            selectedProducts.length = 0;
-            quantityInput.value = "1";
-            addressInput.value = "";
-            emailInput.value = "";
-            paymentMethodSelect.value = "creditCard";
-            updateCheckout();
-        }
+            function resetCheckout() {
+                selectedProducts.length = 0;
+                quantityInput.value = "1";
+                addressInput.value = "";
+                emailInput.value = "";
+                paymentMethodSelect.value = "creditCard";
+                updateCheckout();
+            }
 
-        function continueShopping() {
-            confirmationMessage.style.display = "none";
-            checkoutModal.style.display = "none";
-        }
+            function continueShopping() {
+                confirmationMessage.style.display = "none";
+                checkoutModal.style.display = "none";
+            }
 
-        buyButtons.forEach(button => {
-            button.addEventListener("click", handleButtonClick);
+            buyButtons.forEach(button => {
+                button.addEventListener("click", handleButtonClick);
+            });
+
+            confirmPurchaseBtn.addEventListener("click", confirmPurchase);
+            cancelBtn.addEventListener("click", cancelCheckout);
+            continueShoppingAfterPurchaseBtn.addEventListener("click", continueShopping);
         });
+    </script>
+    <!-- Javascript END -->
 
-        confirmPurchaseBtn.addEventListener("click", confirmPurchase);
-        cancelBtn.addEventListener("click", cancelCheckout);
-        continueShoppingAfterPurchaseBtn.addEventListener("click", continueShopping);
-    });
-</script>
 
-    <!-- Javascript -->
-
-    <!-- footer -->
+    <!-- footer Start -->
 
     <footer>
         <div class="footer-section">
